@@ -18,51 +18,46 @@ from tools.registration.masking import generate_masked_atlas, generate_cropped_a
 from tools.utils.io import makedir, removedir, writer, load_kwargs, convert_to_mhd
 
 def elastix_wrapper(jobid, cores=5, **kwargs):
-    '''Wrapper to handle most registration operations.
-    
-    jobid = 
-        0: 'normal registration'
-        1: 'cellchannel inverse'
-        2: 'injchannel inverse'
     '''
+    --- PURPOSE ---
+    Wrapper to handle most registration operations.
+    --- INPUT ---
+    jobid         index of the volume that will be registered.
+                  the volume type is figured out in this script 
+                  from the index
+    cores = for parallelization 
+    '''
+
     #inputs
     kwargs = load_kwargs(**kwargs)
     sys.stdout.write('\nElastix in:\n'); sys.stdout.flush(); os.system('which elastix')
     
+    # First check that a registration volume exists in this parameter dictionary
+    vols = kwargs['volumes']
+    vol = vols[jobid]
+    channel_type = vol.ch_type
+    sys.stdout.write(f'Have volume of channel_type: {channel_type}'); sys.stdout.flush()
+    reg_vol_list = [xx for xx in vols if xx.ch_type == 'regch']
+    assert len(reg_vol_list) > 0,"Registration volume does not exist in your parameter dictionary. \
+        You cannot run step 3 without this."
 
-    #'normal' registration
-    if jobid == 0: elastix_registration(jobid, cores=cores, **kwargs)
-        
-    #cellchannel inverse
-    if jobid == 1: make_inverse_transform([xx for xx in kwargs['volumes'] if xx.ch_type == 'cellch'][0], cores = cores, **kwargs)
-    
+    if channel_type == 'regch':
+        #'normal' registration
+        elastix_registration(reg_vol=vol,cores=cores, **kwargs) 
+
+    elif channel_type == 'cellch': 
+        #cellchannel inverse
+        make_inverse_transform(vol, cores = cores, **kwargs)
+
     #injchannel inverse -- ##FIXME think about limiting the search to only the cerebellum
-    if jobid == 2: 
-        #make inverse transform        
-        transformfile = make_inverse_transform([xx for xx in kwargs['volumes'] if xx.ch_type == 'injch'][0], cores = cores, **kwargs)
-        
-        #detect injection site  ##FIXME need to define image and pass in appropriate thresh/filter-kernels
-        inj = [xx for xx in kwargs['volumes'] if xx.ch_type == 'injch'][0]
-        #array = find_site(inj.ch_to_reg_to_atlas+'/result.1.tif', thresh=10, filter_kernel=(5,5,5)) 
-    
-        array = find_site(inj.resampled_for_elastix_vol, thresh=10, filter_kernel=(5,5,5)).astype(int)
-        
-        #old version
-        #array = inj_detect_using_labels(threshold = .15, resampledforelastix = True, num_labels_to_keep=1, show = False, save = True, masking = True, **kwargs)
-        
-        #apply resizing point transform
-        txtflnm = point_transform_due_to_resizing(array, chtype = 'injch', **kwargs)
-
-        #run transformix on points
-        points_file = point_transformix(txtflnm, transformfile)
-
-        #convert registered points into structure counts
-        transformed_pnts_to_allen(points_file, ch_type = 'injch', point_or_index = None, **kwargs)        
+    elif channel_type == 'injch': 
+        #injchannel inverse -- ##FIXME think about limiting the search to only the cerebellum
+        transformfile = make_inverse_transform(vol, cores = cores, **kwargs)     
         
     return
 
 
-def elastix_registration(jobid, cores=5, **kwargs):  
+def elastix_registration(reg_vol, cores=5, **kwargs):  
     '''Function to take brainvolumes and register them to AtlasFiles using elastix parameters in parameterfolder.
     Inputs
     ---------------
@@ -98,7 +93,6 @@ def elastix_registration(jobid, cores=5, **kwargs):
         
     ###make variables for volumes:
     vols=kwargs['volumes']
-    reg_vol=[xx for xx in vols if xx.ch_type == 'regch'][0]
     
     #images need to have been stitched, resized, and saved into single tiff stack
     #resize to ~220% total size of atlas (1.3x/dim)

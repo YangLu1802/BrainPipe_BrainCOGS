@@ -3,8 +3,8 @@
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 10                      # number of cores
 #SBATCH -t 20                 # time (minutes)
-#SBATCH -o logs/step2_%a.out        # STDOUT
-#SBATCH -e logs/step2_%a.err        # STDERR
+#SBATCH -o logs/step2_%A_%a.out        # STDOUT
+#SBATCH -e logs/step2_%A_%a.err        # STDERR
 #SBATCH --contiguous
 
 
@@ -21,7 +21,7 @@ module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
 
-xvfb-run python run_tracing.py 2 ${SLURM_ARRAY_TASK_ID} #combine stacks into single tifffiles
+xvfb-run -d python main.py step2 ${output_directory} ${SLURM_ARRAY_TASK_ID} #process zplns, check that 1000 > zplns/slurmfactor
 
 # HOW TO USE:
 # sbatch --array=0-20 sub_arrayjob.sh 

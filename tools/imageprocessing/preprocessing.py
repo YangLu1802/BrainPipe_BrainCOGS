@@ -194,7 +194,7 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
                 vol.add_outdr(kwargs["outputdirectory"])
                 vol.add_indr(pth)
                 vol.add_packagedirectory(kwargs["packagedirectory"])
-                vol.add_brainname(pth[pth.rfind("/")+8:-9])
+                vol.add_brainname(pth[pth.rfind('/')+1:]) # the raw data subdirectory name
                 #add downsized volume path. This is done here instead of during process to prevent pickling IO issues
                 vol.add_downsized_vol(os.path.join(outdr, vol.brainname+"_resized_ch"+vol.channel))
                 vol.add_resampled_for_elastix_vol(vol.downsized_vol + "_resampledforelastix.tif")
@@ -469,7 +469,8 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
             dct=vol.zdct[zpln] #dictionary of files for single z plane
         except KeyError:
             print("ArrayJobID/SF exceeds number of planes")
-
+            print("Skipping")
+            return
         #handle raw vs nonraw
         if vol.raw: stitchdct = flatten_stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, vol.lightsheets, **kwargs)
         if not vol.raw: stitchdct = stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, **kwargs)
