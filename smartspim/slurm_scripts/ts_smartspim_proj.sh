@@ -1,8 +1,8 @@
 #!/bin/env bash
 #
 #SBATCH -p all                # partition (queue)
-#SBATCH -c 3                      # number of cores
-#SBATCH -t 40
+#SBATCH -c 1                      # number of cores
+#SBATCH -t 10
 #SBATCH -o logs/ts_proj_%j.out        # STDOUT #add _%a to see each array job
 #SBATCH -e logs/ts_proj_%j.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
