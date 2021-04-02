@@ -10,7 +10,7 @@ from tools.utils.io import makedir, chunkit, load_np, load_dictionary, listdirfu
 import numpy as np, os
 from tools.utils.io import make_memmap_from_tiff_list
 from skimage.util import view_as_windows
-from skimage.external import tifffile
+import tifffile
 
 
 if __name__ == '__main__':

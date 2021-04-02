@@ -7,7 +7,7 @@ Created on Tue Apr 18 13:13:33 2017
 """
 
 import os, sys, copy, shutil, numpy as np, scipy, cv2, time, SimpleITK as sitk, multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
 from tools.imageprocessing.preprocessing import flatten

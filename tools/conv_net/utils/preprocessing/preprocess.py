@@ -10,7 +10,7 @@ by Tom Pisano (tpisano@princeton.edu, tjp77@gmail.com)
 """
 
 import os, numpy as np, sys, multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 
 
 def generate_patch(**params):

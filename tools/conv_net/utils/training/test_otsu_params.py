@@ -7,7 +7,7 @@ Created on Mon Mar 18 17:58:26 2019
 """
 
 import os, numpy as np, multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 from skimage import filters
 from utils.io import listdirfull, load_np, makedir
 

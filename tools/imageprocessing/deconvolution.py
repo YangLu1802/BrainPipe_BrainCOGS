@@ -13,7 +13,7 @@ import h5py as hp, numpy as np
 fl = hp.File(pth, 'r')
 psf = np.max(fl['psf']['ImageData']['Image'][0,0], axis=0)#[28:37, 28:37]
 
-from skimage.external import tifffile
+import tifffile
 im = tifffile.imread('/home/wanglab/wang/pisano/tracing_output/antero/20161214_db_bl6_lob7_left_53hrs/full_sizedatafld/20161214_db_bl6_lob7_left_53hrs_488_555_647_0005na_1hfsds_z3um_250msec_ch02/20161214_db_bl6_lob7_left_53hrs_488_555_647_0005na_1hfsds_z3um_250msec_C02_Z1734.tif')
 
 from skimage import color, data, restoration

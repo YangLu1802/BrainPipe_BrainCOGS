@@ -13,7 +13,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold
 from sklearn.externals import joblib
-from skimage.external import tifffile
+import tifffile
 
 #http://scikit-learn.org/stable/auto_examples/model_selection/plot_randomized_search.html#sphx-glr-auto-examples-model-selection-plot-randomized-search-py
 #TRY THIS WITH RBF nonlinear kernel: http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html

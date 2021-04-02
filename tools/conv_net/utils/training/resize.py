@@ -7,7 +7,7 @@ Created on Wed Feb  1 12:14:53 2017
 """
 from __future__ import division
 import numpy as np, os, sys
-from skimage.external import tifffile
+import tifffile
 from tools.utils.io import listdirfull, load_kwargs
 from tools.conv_net.input.read_roi import read_roi_zip
 from tools.conv_net.functions.connected import detect_centers_from_contours

@@ -11,7 +11,7 @@ Created on Wed May 11 16:05:13 2016
 import pandas as pd, os, numpy as np
 from tools.utils.io import makedir
 from tools.registration.register import allen_compare
-from skimage.external import tifffile
+import tifffile
 import SimpleITK as sitk
 from collections import Counter
 

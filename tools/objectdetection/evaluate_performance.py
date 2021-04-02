@@ -11,7 +11,7 @@ from tools.utils.io import save_kwargs, makedir, load_np, load_dictionary, listd
 from tools.utils.overlay import tile
 from functools import partial, update_wrapper
 from math import ceil
-from skimage.external import tifffile
+import tifffile
 import matplotlib.pyplot as plt
 from scipy import ndimage
 from keras.callbacks import ModelCheckpoint, Callback

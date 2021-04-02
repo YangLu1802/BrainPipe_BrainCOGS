@@ -8,7 +8,7 @@ FUNCTION TO STITCH FROM SINGLE SCAN
 @author: tpisano
 """
 import os, sys, collections, copy, shutil, numpy as np, scipy
-from skimage.external import tifffile
+import tifffile
 from tools.utils.io import makedir, listdirfull, save_kwargs, listall
 import multiprocessing as mp
 from tools.imageprocessing.preprocessing import regex_determiner
@@ -341,7 +341,7 @@ def find_tiff_dims(src):
     pages: number of pages in tiff, for LVBT this is the number of horizontal foci
     y,x: pixel dims
     '''
-    from skimage.external import tifffile
+    import tifffile
     with tifffile.TiffFile(os.path.join(src)) as tif:
         pages = len(tif.pages) #number of horizontal foci
         y, x = tif.pages[0].shape

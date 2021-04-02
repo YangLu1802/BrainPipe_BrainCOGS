@@ -6,7 +6,7 @@ Created on Thu Feb  2 11:18:34 2017
 @author: tpisano
 """
 import cv2, SimpleITK as sitk
-from skimage.external import tifffile
+import tifffile
 from numba import jit
 from skimage.exposure import rescale_intensity
 from skimage.morphology import erosion, dilation, disk

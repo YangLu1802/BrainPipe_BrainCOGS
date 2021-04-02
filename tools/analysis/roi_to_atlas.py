@@ -6,7 +6,7 @@ Created on Mon Feb 11 14:51:13 2019
 @author: tpisano
 """
 import os, sys, shutil, numpy as np
-from skimage.external import tifffile
+import tifffile
 sys.path.append("/jukebox/wang/pisano/Python/lightsheet")
 from tools.conv_net.input.read_roi import read_roi_zip
 from tools.registration.register import elastix_command_line_call, jacobian_command_line_call, change_interpolation_order, transformix_command_line_call, count_structure_lister

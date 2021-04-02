@@ -8,7 +8,7 @@ Created on Wed Jan 17 12:20:45 2018
 
 import cv2
 import skvideo.io
-from skimage.external import tifffile
+import tifffile
 import skimage
 import numpy as np
 from matplotlib import pyplot as plt

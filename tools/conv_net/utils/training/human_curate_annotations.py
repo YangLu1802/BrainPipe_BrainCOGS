@@ -7,7 +7,7 @@ Created on Tue Mar 19 16:09:41 2019
 """
 
 import cv2, numpy as np, os
-from skimage.external import tifffile
+import tifffile
 from utils.io import read_roi_zip, swap_cols
 #
 #roifld = "/home/wanglab/mounts/wang/zahra/conv_net/annotations/prv/201905_human_curated_inputs_ventricles_removed_hypothalamus_only/rois_to_rm"

@@ -12,7 +12,7 @@ from tools.registration.transform_list_of_points import create_text_file_for_ela
 from tools.registration.register import change_transform_parameter_initial_transform, transformix_command_line_call
 from tools.imageprocessing.orientation import fix_contour_orientation, fix_dimension_orientation
 import numpy as np, pandas as pd
-from skimage.external import tifffile
+import tifffile
 
 
 def generate_transformed_cellcount(dataframe, dst, transformfiles, lightsheet_parameter_dictionary, verbose=False):

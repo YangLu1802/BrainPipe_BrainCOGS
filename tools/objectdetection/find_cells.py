@@ -1,7 +1,7 @@
 import cv2
 _cv_ver = int(cv2.__version__[0])
 import numpy as np
-from skimage.external import tifffile
+import tifffile
 from skimage import feature
 from skimage.exposure import equalize_adapthist as clahe
 from skimage.morphology import square, dilation

@@ -14,7 +14,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split, KFold, StratifiedKFold
 from sklearn.externals import joblib
-from skimage.external import tifffile
+import tifffile
 
 if __name__ == '__main__':
     from tools.objectdetection.logistic_regression import logistic_regression

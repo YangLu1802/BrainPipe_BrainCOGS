@@ -7,7 +7,7 @@ Created on Mon Dec 10 12:39:16 2018
 """
 
 import os, numpy as np, sys, multiprocessing as mp, zipfile
-from skimage.external import tifffile
+import tifffile
 from skimage import filters
 import matplotlib.pyplot as plt
 import SimpleITK as sitk

@@ -8,7 +8,7 @@ Created on Wed Oct  3 11:39:37 2018
 
 import os, numpy as np, sys, multiprocessing as mp, time, matplotlib.pyplot as plt, pandas as pd, pickle, matplotlib as mpl
 from scipy import ndimage
-from skimage.external import tifffile
+import tifffile
 from scipy.ndimage.morphology import generate_binary_structure
 sys.path.append("/tigress/zmd/3dunet")
 from utils.io import pairwise_distance_metrics

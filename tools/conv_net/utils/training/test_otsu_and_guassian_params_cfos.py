@@ -9,7 +9,7 @@ Created on Sat Jun  8 13:15:21 2019
 #in python 3!!
 
 import os, numpy as np, multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 from skimage import filters
 from utils.io import listdirfull
 

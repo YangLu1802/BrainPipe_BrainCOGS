@@ -11,19 +11,22 @@ import numpy as np
 #import dill as pickle
 import pickle
 import os, sys, time, shutil
-from skimage.external import tifffile
+import tifffile
 from skimage.exposure import rescale_intensity
 from scipy.ndimage.interpolation import zoom
 from tools.utils.directorydeterminer import directorydeterminer
 from tools.utils.parallel import parallel_process
 
 
-
 def makedir(path):
-    '''Simple function to make directory if path does not exists'''
-    if os.path.exists(path) == False:
-        os.mkdir(path)
-    return
+    """ thread safe makedir """
+    try:
+        if path != '' and not os.path.exists(path):
+          os.makedirs(path)
+    except OSError as e:
+        if e.errno == 17: # File Exists
+          pass
+    return 
 
 def removedir(path):
     if os.path.exists(path):
@@ -726,7 +729,7 @@ def view_brain(vol, subsections=5, save=False, dpi=500, cmap = 'gray'):
            str: save location
     dpi = dots per inch to save/view
     '''
-    from skimage.external import tifffile
+    import tifffile
     import matplotlib.pyplot as plt
     if type(vol) == str: vol = tifffile.imread(vol)
 

@@ -11,7 +11,7 @@ import SimpleITK as sitk
 import numpy as np
 import cv2 #this is the main openCV class, the python binding file should be in /pythonXX/Lib/site-packages
 from matplotlib import pyplot as plt
-from skimage.external import tifffile
+import tifffile
 from math import ceil
 from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs
 from tools.utils.directorydeterminer import directorydeterminer

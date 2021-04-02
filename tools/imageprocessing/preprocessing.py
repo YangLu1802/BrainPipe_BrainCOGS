@@ -7,7 +7,8 @@ Created on Wed Feb 24 22:07:30 2016
 """
 
 import os, sys, cv2, time, re, warnings, shutil, mmap, collections, random, numpy as np, SimpleITK as sitk, multiprocessing as mp
-import scipy.stats, pickle, scipy.ndimage, tifffile
+import scipy.stats, pickle, scipy.ndimage
+from skimage.external import tifffile
 from tools.imageprocessing.orientation import fix_orientation
 from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs, load_tif_list, save_kwargs
 
@@ -459,6 +460,7 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
     ############################inputs
     kwargs = load_kwargs(kwargs["outputdirectory"])
     zpln = str(job).zfill(4)
+
     resizefactor=kwargs["resizefactor"]
     bitdepth = kwargs["bitdepth"] if "bitdepth" in kwargs else "uint16" #default to uint16 unless specified
     ####################################
@@ -1655,6 +1657,9 @@ def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp,
     """
     
     #list of images going Lshet01, Rsheet01, Lsheet02
+    print("Here is the input zplnlst:")
+    print(zplnlst)
+
     lst=[tifffile.imread("".join(im), multifile=False) for im in zplnlst] #cleaned up 201802 - if breaks change imread as float64
     
     #max project HF

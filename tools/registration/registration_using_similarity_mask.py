@@ -7,7 +7,7 @@ Created on Thu Oct 11 17:46:18 2018
 """
 
 import numpy as np, sys, os
-from skimage.external import tifffile
+import tifffile
 from skimage import filters
 from skimage.morphology import binary_dilation, ball
 from tools.registration.register import similarity_transform, transformix_command_line_call

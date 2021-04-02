@@ -7,7 +7,7 @@ Created on Thu Jan 24 11:58:52 2019
 """
 
 import os, sys, pandas as pd, numpy as np
-from skimage.external import tifffile
+import tifffile
 
 def check_patchlist_length_equals_patches(**params):
     

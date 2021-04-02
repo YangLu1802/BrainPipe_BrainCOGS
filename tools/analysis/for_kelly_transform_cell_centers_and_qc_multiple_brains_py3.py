@@ -15,7 +15,7 @@ from collections import Counter
 sys.path.append(path_to_lighsheet_folder)
 from tools.registration.register import transformix_command_line_call, transformed_pnts_to_allen_helper_func, count_structure_lister
 from tools.utils.io import makedir, load_np, listall, load_kwargs
-from skimage.external import tifffile
+import tifffile
 from tools.registration.transform_cell_counts import generate_transformed_cellcount, get_fullsizedims_from_kwargs, points_resample
 from tools.registration.transform_list_of_points import modify_transform_files
 from tools.imageprocessing.orientation import fix_contour_orientation, fix_dimension_orientation
