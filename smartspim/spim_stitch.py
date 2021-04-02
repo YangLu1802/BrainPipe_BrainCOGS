@@ -89,19 +89,21 @@ def stitch_step2(volin):
     return 
 
 def stitch_step3(volin,volout):
-    """ Runs the projection steps """
+    """ Runs the merge step """
     
     """ Part (1/3) """
     projin = os.path.join(volin, "xml_placetiles.xml")
     cmd = "terastitcher --merge --projin={} --volout={} --imout_depth=16 --resolutions=0".format(
         projin,volout) 
     print("running command: ",cmd)
-
+    sys.stdout.flush()
     result = run(cmd,
             shell=True,
             stdout=PIPE,
             stderr=PIPE)
    
+    print(result.stdout)
+    sys.stdout.flush()
     if b'ERROR' in result.stdout:
         raise Exception("error found in terastitcher output: {}".format(result.stdout))
     
