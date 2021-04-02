@@ -31,7 +31,7 @@ def run_step1(jobid,**params):
     else:
         #Stitch using Terastitcher "smart stitching"
         from tools.imageprocessing.stitch import terastitcher_from_params
-        terastitcher_from_params(jobid=jobid, cores=6, **params)
+        terastitcher_from_params(jobid=jobid, cores=12, **params)
 
 def run_step1_check(**params):     
     #######################STEP 1 check##################
