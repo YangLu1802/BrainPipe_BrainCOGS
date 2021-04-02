@@ -13,7 +13,7 @@ OUT0=$(sbatch --parsable --export=ALL,output_directory=${output_directory} --arr
 echo $OUT0
 
 #process zplns
-OUT1=$(sbatch --parsable --dependency=afterok:${OUT0##* } --export=ALL,output_directory=${output_directory} --array=0-${max_array_job_step1} slurm_files/step1.sh) 
+OUT1=$(sbatch --parsable --dependency=afterok:${OUT0##* } --export=ALL,output_directory=${output_directory} --array=0-${max_array_job_step1} slurm_files/step1_terastitcher.sh) 
 echo $OUT1
 
 #combine stacks into single tifffiles
