@@ -39,7 +39,7 @@ def main(**args):
     start_training(**params)
 
 
-def fill_params(expt_name, chkpt_num, batch_sz, gpus,
+def fill_params(expt_name, expt_dir,chkpt_num, batch_sz, gpus,
                 sampler_fname, model_fname, augmentor_fname, **args):
 
     params = {}
@@ -61,29 +61,30 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = "/tigress/zmd/3dunet_data/ctb/training_inputs"
-    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    
-    params["train_sets"] = ["z269stackstart150",
-                             "z269stackstart475",
-                             "z266stackstart350",
-                             "z266stackstart250",
-                             "z268stackstart300",
-                             "z265_zpln165-191_x6325_y4458",
-                             "z265_zpln315-340_x4785_y3793"]
+    data_dir     = os.path.join(expt_dir,"training_data")
+    assert os.path.isdir(data_dir),"nonexistent data directory"
+    params["data_dir"] = data_dir
+    train_dir = os.path.join(data_dir,"train")
+    val_dir = os.path.join(data_dir,"val")
 
-    params["val_sets"] = ["z269stackstart100"]
+    train_sets = [x.split('_lbl.tif')[0] for x in os.listdir(train_dir) if 'lbl' in x] 
+    assert len(train_sets) > 0
+    params["train_sets"] = train_sets
+    print(f"Found training sets: {train_sets}")
+    val_sets = [x.split('_lbl.tif')[0] for x in os.listdir(val_dir) if 'lbl' in x] 
+    params["val_sets"] = val_sets
+    assert len(val_sets) > 0
+    print(f"Found validation sets: {val_sets}")
 
-    params["patchsz"]	   = (20,192,192)
+    params["patchsz"]	   = (20,192,192) # z,y,x
     params["sampler_spec"] = dict(input=params["patchsz"],
                                   soma_label=params["patchsz"])
-
     #GPUS
     params["gpus"] = gpus
 
     #IO/Record params
     params["expt_name"]  = expt_name
-    params["expt_dir"]   = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
+    params["expt_dir"]   = expt_dir
 
     params["model_dir"]  = os.path.join(params["expt_dir"], "models")
     params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
@@ -127,13 +128,15 @@ def start_training(model_class, model_args, model_kwargs,
 
     #DataProvider Stuff
     train_aug = augmentor_constr(True)
-    train_sampler = utils.AsyncSampler(sampler_class(data_dir, sampler_spec,
+    train_dir = os.path.join(data_dir,"train")
+    train_sampler = utils.AsyncSampler(sampler_class(train_dir, sampler_spec,
                                                      vols=train_sets,
                                                      mode="train",
                                                      aug=train_aug))
 
     val_aug = augmentor_constr(False)
-    val_sampler   = utils.AsyncSampler(sampler_class(data_dir, sampler_spec,
+    val_dir = os.path.join(data_dir,"val")
+    val_sampler   = utils.AsyncSampler(sampler_class(val_dir, sampler_spec,
                                                      vols=val_sets,
                                                      mode="val",
                                                      aug=val_aug))
@@ -156,6 +159,8 @@ if __name__ == "__main__":
 
     parser.add_argument("expt_name",
                         help="Experiment Name")
+    parser.add_argument("expt_dir",
+                        help="Experiment Directory")
     parser.add_argument("model_fname",
                         help="Model Template filename")
     parser.add_argument("sampler_fname",
