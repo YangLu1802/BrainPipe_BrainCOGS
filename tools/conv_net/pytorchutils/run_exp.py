@@ -39,7 +39,7 @@ def main(**args):
     start_training(**params)
 
 
-def fill_params(expt_name, expt_dir,chkpt_num, batch_sz, gpus,
+def fill_params(expt_name, expt_dir,chkpt_num, chkpt_intv, batch_sz, max_iter, gpus,
                 sampler_fname, model_fname, augmentor_fname, **args):
 
     params = {}
@@ -50,16 +50,15 @@ def fill_params(expt_name, expt_dir,chkpt_num, batch_sz, gpus,
     params["width"]        = [32, 40, 80]
 
     #Training procedure params
-    params["max_iter"]    = 1000000
+    params["max_iter"]    = max_iter
     params["lr"]          = 0.00001
     params["test_intv"]   = 100
     params["test_iter"]   = 10
     params["avgs_intv"]   = 50
-    params["chkpt_intv"]  = 1000
-    params["warm_up"]     = 50
+    params["chkpt_intv"]  = chkpt_intv
+    params["warm_up"]     = 10
     params["chkpt_num"]   = chkpt_num
     params["batch_size"]  = batch_sz
-
     #Sampling params
     data_dir     = os.path.join(expt_dir,"training_data")
     assert os.path.isdir(data_dir),"nonexistent data directory"
@@ -167,9 +166,13 @@ if __name__ == "__main__":
                         help="DataProvider Sampler filename")
     parser.add_argument("augmentor_fname",
                         help="Data Augmentor module filename")
+    parser.add_argument("--max_iter",  type=int, default=10000,
+                        help="The number of iterations to run")
     parser.add_argument("--batch_sz",  type=int, default=1,
                         help="Batch size for each sample")
     parser.add_argument("--chkpt_num", type=int, default=0,
+                        help="Checkpoint Number")
+    parser.add_argument("--chkpt_intv", type=int, default=100,
                         help="Checkpoint Number")
     parser.add_argument("--gpus", default=["0"], nargs="+")
 
