@@ -22,7 +22,7 @@ I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage
 
 ```
 $ conda create -n lightsheet python=3.7.3
-$ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba natsort tifffile numpy==1.20.2 scipy pandas h5py==2.9.0 SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision tensorflow
+$ pip install opencv-python scikit-image==0.15.0 scikit-learn seaborn tqdm numba natsort tifffile numpy==1.20.2 scipy pandas h5py==2.9.0 SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision tensorflow
 ```
 
 If on a local machine:
