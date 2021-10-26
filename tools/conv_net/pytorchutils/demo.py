@@ -141,7 +141,9 @@ def fill_params_train(expt_name, batch_sz, gpus,
     params["tb_val"]     = os.path.join(params["expt_dir"], "tb/val")
 
     #Use-specific Module imports
+    print(model_fname)
     params["model_class"]   = utils.load_source(model_fname).Model
+    print(sampler_fname)
     params["sampler_class"] = utils.load_source(sampler_fname).Sampler
     params["augmentor_constr"] = utils.load_source(augmentor_fname).get_augmentation
 
@@ -313,4 +315,4 @@ if __name__ == "__main__":
     
     del args.sampler_fname; del args.augmentor_fname; del args.batch_sz
     
-    main_fwd(**vars(args))
+    # main_fwd(**vars(args))

@@ -4,7 +4,7 @@ from subprocess import run,PIPE
 
 def stitch_step0(volin):
     """ call function for terastitcher """
-    cmd = "terastitcher -1 --volin={} --ref1=x --ref2=y --ref3=z --vxl1=1.81 --vxl2=1.81 --vxl3=2 --projout=xml_import".format(
+    cmd = "terastitcher -1 --volin={} --ref1=x --ref2=y --ref3=z --vxl1=1.866 --vxl2=1.866 --vxl3=2 --projout=xml_import".format(
         volin)
     print("running command: ",cmd)
     result = run(cmd,
