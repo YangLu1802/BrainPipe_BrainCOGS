@@ -13,7 +13,7 @@
 
 # cat /proc/$$/status | grep Cpus_allowed_list
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate lightsheet
 
 xvfb-run -d python spim_stitch.py step0 ${input_dir} ${output_dir} 
