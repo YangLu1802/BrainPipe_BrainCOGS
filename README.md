@@ -22,7 +22,7 @@ I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage
 
 ```
 $ conda create -n lightsheet python=3.7.3
-$ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba natsort tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision
+$ pip install opencv-python scikit-image==0.15.0 scikit-learn seaborn tqdm numba natsort tifffile numpy==1.20.2 scipy pandas h5py==2.9.0 SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision tensorflow
 ```
 
 If on a local machine:
@@ -44,10 +44,15 @@ Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for w
 $ git clone https://github.com/torms3/DataTools.git
 ```
 
-Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
+Go to the dataprovider3 and DataTools directories in `tools/conv_net` and (making sure you have your new lightsheet conda environment activated) run (for each directory):
 
 ```
 $ python setup.py install
+```
+
+Then go to the augmentor directory in `tools/conv_net` and (making sure you have your new lightsheet conda environment activated) run: 
+```
+$ pip install -e .
 ```
 
 ## To use TeraStitcher it must be installed locally or on your cluster
