@@ -10,4 +10,4 @@ module load terastitcher/1.11.10
 module load parastitcher/3.2.3
 
 mpirun -np 15 parastitcher.py --displcompute --projin=${input_dir}/xml_import.xml \
- --subvoldim=100 --projout=/jukebox/wang/ahoag/test_stitching_mpi/data/xml_displcomp.xml 
+ --subvoldim=100 --projout=${input_dir}/xml_displcomp.xml 
