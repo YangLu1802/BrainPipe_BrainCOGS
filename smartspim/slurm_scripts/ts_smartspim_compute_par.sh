@@ -5,9 +5,10 @@
 #SBATCH -t 90					
 #SBATCH -o logs/ts_compute_par_%j.out        # STDOUT #add _%a to see each array job
 #SBATCH -e logs/ts_compute_par_%j.err        # STDERR #add _%a to see each array job
+#SBATCH --mem 100000
 
 module load terastitcher/1.11.10
 module load parastitcher/3.2.3
 
-mpirun -np 15 parastitcher.py --displcompute --projin=${input_dir}/xml_import.xml \
- --subvoldim=100 --projout=${input_dir}/xml_displcomp.xml 
+cd ${input_dir}
+mpirun -np 15 parastitcher.py -2 --projin=./xml_import.xml --projout=./xml_displcomp.xml --subvoldim=100

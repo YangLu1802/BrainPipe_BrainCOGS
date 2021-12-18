@@ -5,13 +5,16 @@
 #SBATCH -t 200					
 #SBATCH -o logs/ts_merge_par_%j.out        # STDOUT #add _%a to see each array job
 #SBATCH -e logs/ts_merge_par_%j.err        # STDERR #add _%a to see each array job
-#SBATCH --mem 85000
+#SBATCH --mem 100000
 
 module load terastitcher/1.11.10
 module load parastitcher/3.2.3
 
-mpirun -np 15 parastitcher.py -6 --projin=${input_dir}/xml_placetiles.xml \
- --volout=${output_dir} --resolutions=0 \
+cd ${input_dir}
+output_subdir=`echo $output_dir | awk -F/ '{print $NF}'`
+
+mpirun -np 15 parastitcher.py -6 --projin=./xml_placetiles.xml \
+ --volout=../${output_subdir} --resolutions=0 \
  --sliceheight=20000 --slicewidth=20000 --slicedepth=1
 
 
