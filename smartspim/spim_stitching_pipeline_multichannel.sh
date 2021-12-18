@@ -42,7 +42,7 @@ echo $OUT0_ch1
 # # compute ch1
 OUT1_ch1=$(sbatch --parsable --dependency=afterok:${OUT0_ch1##* } \
 	--export=ALL,input_dir=${raw_dir_ch1},output_dir=${stitched_dir_ch1} \
-	slurm_scripts/ts_smartspim_compute_par.sh)
+	--exclude=./bad_nodenames.txt slurm_scripts/ts_smartspim_compute_par.sh)
 echo $OUT1_ch1
 
 # projection,thresholding,placing ch1
@@ -55,7 +55,7 @@ echo $OUT2_ch1
 # # merge ch1
 OUT3_ch1=$(sbatch --parsable --dependency=afterok:${OUT2_ch1##* } \
 	--export=ALL,input_dir=${raw_dir_ch1},output_dir=${stitched_dir_ch1} \
-	slurm_scripts/ts_smartspim_merge_par.sh)
+	--exclude=./bad_nodenames.txt slurm_scripts/ts_smartspim_merge_par.sh)
 echo $OUT3_ch1
 
 
@@ -85,7 +85,7 @@ then
 	# dependent on the transfer and the ch2 import step (since ch2 mdata.bin file gets created in ch2 import step)
 	OUT2_ch2=$(sbatch --parsable --dependency=afterok:${OUT0_ch2##* }:${OUT1_ch2##* } \
 		--export=ALL,input_dir=${raw_dir_ch2},output_dir=${stitched_dir_ch2} \
-		slurm_scripts/ts_smartspim_merge_par.sh)
+		--exclude=./bad_nodenames.txt slurm_scripts/ts_smartspim_merge_par.sh)
 	echo $OUT2_ch2
 fi
 
@@ -119,7 +119,7 @@ then
 	# dependent on the transfer and the ch3 import step (since ch3 mdata.bin file gets created in ch3 import step)
 	OUT2_ch3=$(sbatch --parsable --dependency=afterok:${OUT0_ch3##* }:${OUT1_ch3##* } \
 		--export=ALL,input_dir=${raw_dir_ch3},output_dir=${stitched_dir_ch3} \
-		slurm_scripts/ts_smartspim_merge_par.sh)
+		--exclude=./bad_nodenames.txt slurm_scripts/ts_smartspim_merge_par.sh)
 	echo $OUT2_ch3
 fi
 
@@ -153,7 +153,7 @@ then
 	# dependent on the transfer and the ch4 import step (since ch4 mdata.bin file gets created in ch4 import step)
 	OUT2_ch4=$(sbatch --parsable --dependency=afterok:${OUT0_ch4##* }:${OUT1_ch4##* } \
 		--export=ALL,input_dir=${raw_dir_ch4},output_dir=${stitched_dir_ch4} \
-		slurm_scripts/ts_smartspim_merge_par.sh)
+		--exclude=./bad_nodenames.txt slurm_scripts/ts_smartspim_merge_par.sh)
 	echo $OUT2_ch4
 fi
 
