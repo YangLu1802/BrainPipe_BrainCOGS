@@ -11,11 +11,12 @@ module load terastitcher/1.11.10
 module load parastitcher/3.2.3
 
 cd ${input_dir}
-output_subdir=`echo $output_dir | awk -F/ '{print $NF}'`
-
+output_subdir=`echo ${output_dir%/} | awk -F/ '{print $NF}'` # the %/ removes the trailing slash if there is one
+echo "output subdir:"
+echo $output_subdir
 mpirun -np 15 parastitcher.py -6 --projin=./xml_placetiles.xml \
  --volout=../${output_subdir} --resolutions=0 \
- --sliceheight=20000 --slicewidth=20000 --slicedepth=1
+ --sliceheight=50000 --slicewidth=50000 --slicedepth=1
 
 
 ## NOTE: sliceheight and slicewidth are intentionally larger than true x and y dimensions
